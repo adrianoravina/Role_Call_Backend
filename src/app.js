@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require("path");
+
 require("dotenv").config();
 const { mysqlConnect } = require("./database/Connection");
 const cors = require("cors");
@@ -9,9 +11,6 @@ const {
 } = require("./endpoints");
 
 //const iwlist = require('wireless-tools/iwlist');
-
-
-
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -29,27 +28,33 @@ app.use("*", function (req, res, next) {
   next();
 });
 app.options("*", cors());
-
-
 /*
 router.get('/', homeController.checkLogin);
 router.post('/login', homeController.Login);
 router.post('/signup', homeController.SignUp);
 */
-
 app.get('/', async (req, res) => {
 
-    const sql = "SELECT * FROM students";
+    //res.sendFile(`<h1>Activo! con ${results.s_firstName}</h1>`);
+    res.sendFile('index.html', {root: path.join(__dirname, '../views')});
 
-    const results = await mysqlConnect.promise().query(sql)
-    .then(([ rows,fields ]) => {
-        
-        return rows[0] ;
-    }).catch(console.log);
+});
 
-    console.log(results);
+app.get('/loginForm', async (req, res) => {
 
-    res.send(`<h1>Activo! con ${results.s_firstName}</h1>`);
+  res.sendFile('loginForm.html', {root: path.join(__dirname, '../views')});
+
+});
+
+app.get('/teacherPage', async (req, res) => {
+
+  res.sendFile('teacherPage.html', {root: path.join(__dirname, '../views')});
+
+});
+
+app.get('/studentPage', async (req, res) => {
+
+  res.sendFile('studentPage.html', {root: path.join(__dirname, '../views')});
 
 });
 
