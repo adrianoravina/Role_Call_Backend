@@ -1,12 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Page</title>
+
+    <style>
+        h1{
+            padding: 20px;
+        }
+        .courseOverview {
+            border: 1px solid;
+            text-align: center;
+            height: auto;
+            position: relative;
+            padding: 10px;
+            padding-top: 10px;
+        }
+
+        .courseHeader {
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        .courseDescription {
+            font-size: 16px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .attend {
+            width: auto;
+            background-color: red;
+            font-weight: bold;
+            color: white;
+            display: block;
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 46%;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <h1>Student Page</h1>
+    <div class="courseOverview">
+        Course overview div
+        <div class="courseHeader">
+            Course header
+        </div>
+        <div class="courseDescription">
+            course description
+            <button type="submit" class="attend">
+                Attend button
+            </button>
+        </div>
+    </div>
 </body>
+
 </html>
