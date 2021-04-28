@@ -1,0 +1,65 @@
+
+const { createSession, createBlock, checkIn, createStudentBlock } = require("../requests/Sessions.Requests");
+
+const SessionsEndpoint = (app) => {
+  app.post("/createSession", async (req, res) => {
+    try {
+
+      //const data  = req.body;
+
+      const sessionData = ["React Native","today we see navigation", "sd20i, sd21", 1, -34.397, 150.644];
+
+      const sessionId = await createSession(sessionData);
+
+      let numBlocks = 2;
+      const blocksData = [sessionId, 30];
+
+        while(numBlocks != 0){
+            await createBlock(blocksData);
+            numBlocks--;            
+        } 
+
+        
+
+        //use block Id instead of sessionId
+      res.status(200).json({ msg: "session created", attendanceCode: sessionId});
+    } catch (error) {
+      console.log("Endpoint error: "+error);
+      res.status(200).json({ msg: "Could not create new Order" });
+    }
+  });
+
+  app.get("/checkIn", async (req, res) => {
+    try {
+
+      //const data  = req.body;
+      const { attendanceCode, studentId } = req.body;
+
+      const booleanCode = await checkIn(attendanceCode);
+
+      if(booleanCode){
+        await createStudentBlock(attendanceCode, studentId);
+      }else{
+        res.status(200).json({ msg: "wrong Attendance Code!"});
+      }
+
+     /**
+      const str = JSON.stringify(sessionDate).split("T");
+      const time = str[1].split(".");
+      const codeHour = time[0];
+      */
+
+      console.log(new Date());
+      console.log(codeHour);
+
+      res.status(200).json({ msg: "date retrieved!"});
+    } catch (error) {
+      console.log("Endpoint error: "+error);
+      res.status(200).json({ msg: "Could not create block student row" });
+    }
+  });
+
+};
+
+
+module.exports = SessionsEndpoint;
