@@ -8,9 +8,10 @@
     <title>Student Page</title>
 
     <style>
-        h1{
+        h1 {
             padding: 20px;
         }
+
         .courseOverview {
             border: 1px solid;
             text-align: center;
@@ -39,7 +40,10 @@
             display: block;
             padding: 10px;
             margin-top: 10px;
-            margin-left: 46%;
+        }
+        .centerButton {
+            display: flex;
+        justify-content: center;
         }
     </style>
 </head>
@@ -53,9 +57,11 @@
         </div>
         <div class="courseDescription">
             course description
-            <button type="submit" class="attend">
-                Attend button
-            </button>
+            <div class="centerButton">
+                <button type="submit" class="attend">
+                    Attend button
+                </button>
+            </div>
         </div>
     </div>
 </body>
