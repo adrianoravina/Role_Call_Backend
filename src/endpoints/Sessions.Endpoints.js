@@ -41,14 +41,16 @@ const SessionsEndpoint = (app) => {
     try {
 
       //const data  = req.body;
-      const { attendanceCode, studentId } = req.body;
+      const { attendanceCode } = req.body;
+      const studentId = 1;
 
       const booleanCode = await checkIn(attendanceCode);
 
       if(booleanCode){
         await createStudentBlock(attendanceCode, studentId);
+        res.redirect("/teacherPage");
       }else{
-        res.status(200).json({ msg: "wrong Attendance Code!"});
+        res.redirect("/loginForm");
       }
 
      /**
@@ -62,7 +64,8 @@ const SessionsEndpoint = (app) => {
       console.log(codeHour);
        */
 
-      res.status(200).json({ msg: "date retrieved!"});
+      //res.status(200).json({ msg: "date retrieved!"});
+      
     } catch (error) {
       console.log("Endpoint error: "+error);
       res.status(200).json({ msg: "Could not create block student row" });

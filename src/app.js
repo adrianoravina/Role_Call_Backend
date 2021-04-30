@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 
 require("dotenv").config();
@@ -10,8 +11,22 @@ const {
   UsersEndpoint
 } = require("./endpoints");
 
+const { authUser, loggedInUser } = require("./authentication/basicAuth.js")
+
 //const iwlist = require('wireless-tools/iwlist');
 const app = express();
+
+app.use(session({
+  name: "role",
+  resave: false,
+  saveUninitialized: false,
+  secret: "its,a,secret",
+  cookie: {
+    maxAge: 1000 * 60 *60,
+    sameSite: true,
+    secure: false
+  }
+}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -40,21 +55,27 @@ app.get('/', async (req, res) => {
 
 });
 
-app.get('/loginForm', async (req, res) => {
+app.get('/loginForm', loggedInUser, async (req, res) => {
 
   res.sendFile('loginForm.html', {root: path.join(__dirname, '../views')});
 
 });
 
-app.get('/teacherPage', async (req, res) => {
+app.get('/teacherPage', authUser, async (req, res) => {
 
   res.sendFile('teacherPage.html', {root: path.join(__dirname, '../views')});
 
 });
 
-app.get('/studentPage', async (req, res) => {
+app.get('/studentPage', authUser, async (req, res) => {
 
   res.sendFile('studentPage.html', {root: path.join(__dirname, '../views')});
+
+});
+
+app.get('/userForm', async (req, res) => {
+
+  res.sendFile('userForm.html', {root: path.join(__dirname, '../views')});
 
 });
 

@@ -51,18 +51,22 @@
 <body>
     <h1>Student Page</h1>
     <div class="courseOverview">
-        Course overview div
+        Try your code
         <div class="courseHeader">
-            Course header
+            Insert code the teacher has given you and press the button to clock in to your class!
         </div>
-        <div class="courseDescription">
-            course description
-            <div class="centerButton">
-                <button type="submit" class="attend">
-                    Attend button
-                </button>
+        <form action="/checkIn" method="post">
+            <input type="text" placeholder="Enter Code" name="attendanceCode" required>
+            <div class="courseDescription">
+                this is the student code validator
+                <div class="centerButton">
+                    <button type="submit" class="attend">
+                        Attend button
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
+        
     </div>
 </body>
 
