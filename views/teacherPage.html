@@ -1,37 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Page</title>
-</head>
-<body>
-  <h1>Teacher Page</h1>
-    <form action="/createSession" method="post">
-    <textarea style="
-    display: block;
-    width: auto;"id="courseName" name="courseName" rows="2" cols="30"></textarea>
-    <textarea style="
-    display: block;
-    width: auto;"
-    id="classGroups" name="classGroups" rows="2" cols="30"></textarea>
 
-    <textarea style="display: block;
-    width: auto;" id="descriptionCourse" name="descriptionCourse" rows="4" cols="30"></textarea>
-    <div class="numberScroll">
-        <!-- Just one input :) -->
-        Choose number of blocks you want to create (1-6)
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Page</title>
+  <style>
+    body {
+      margin: 0;
+      background-image: url(https://images.unsplash.com/photo-1586776977607-310e9c725c37?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: unset;
+    }
+
+    .headerStyle {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .logOut {
+      width: 150px;
+      background-color: #233249;
+      color: white;
+    }
+
+    .bigHeader {
+      background-color: #EA5045;
+    }
+
+    .bigHeader h1 {
+      text-align: center;
+      margin-top: 0;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+
+
+    .navBar {
+      position: absolute;
+      top: 30px;
+      left: 19px
+    }
+
+    .navBar a {
+      color: black;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .navBar a:hover {
+      background-color: #233249;
+      color: #f2f2f2;
+    }
+
+    .sessionsWrapper h2{
+      margin-bottom: 0;
+    }
+    .sessionsWrapper {
+      border: 1px solid;
+      text-align: center;
+      height: auto;
+      position: relative;
+      padding: 10px;
+      padding-top: 10px;
+      width: 40%;
+      margin: auto;
+      margin-top: 30px;
+      box-shadow: rgb(50 50 93 / 25%) 0px 50px 100px -20px, rgb(0 0 0 / 30%) 0px 30px 60px -30px, rgb(10 37 64 / 35%) 0px -2px 6px 0px inset;
+      background-color: white;
+      opacity: 0.97;
+    }
+
+    .sessionsWrapper form {
+      padding: 40px 20px 40px;
+
+    }
+
+    .input-wrapper {
+      width: 70%;
+      margin: auto;
+      text-align: left;
+    }
+
+    .input-wrapper textarea {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      margin-bottom: 40px;
+      height: 20px;
+    }
+
+    #numOfBlocks,
+    #timeOfBlocks {
+      width: 40px;
+    }
+
+    .numberScroll input,
+    .minutesScroll input {
+      float: right;
+      clear: both;
+    }
+
+    .sessionButtonWrapper {
+      clear: both;
+    }
+
+    .sessionButtonWrapper button {
+      background-color: #EA5045;
+      font-weight: bold;
+      color: white;
+      padding: 10px 40px;
+      margin-top: 20px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .numberScroll,
+    .minutesScroll {
+      clear: both;
+      margin-bottom: 40px;
+    }
+
+
+
+    footer {
+      text-align: center;
+      background-color: #EA5045;
+      color: black;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<header class="bigHeader" style="position: relative;">
+  <h1>Teacher Page</h1>
+  <div class="headerStyle"> <button class="logOut">Log Out</button></div>
+  <div class="navBar">
+    <a href="#">Teacher Page</a>
+    <a href="#">Statistics Page</a>
+  </div>
+
+
+</header>
+
+<body>
+  <div class="sessionsWrapper">
+    <h2>Create Your Teaching Session</h2>
+    <form action="/createSession" method="post">
+      <div class="input-wrapper">
+        <label for="courseName">Name of the Course</label>
+        <input style="display: block;" id="courseName" name="courseName"></input>
+        <label for="classGroups">Which class groups should attend</label>
+        <textarea style="display: block;" id="classGroups" name="classGroups" rows="2" cols="30"></textarea>
+        <label for="descriptionCourse">Description of the course</label>
+        <textarea style="display: block;" id="descriptionCourse" name="descriptionCourse" rows="4" cols="30">
+      </textarea>
+        <div class="numberScroll">
+          <!-- Just one input :) -->
+          Choose number of blocks you want to create (1-6)
           <input type="number" id="numOfBlocks" name="numOfBlocks" value="1" min="1" max="6" step="1" />
-        <!-- Done! -->
-      </div>
-      <div class="minutesScroll">
-        <!-- Just one input :) -->
-        Choose minutes for each block created (15-60 min)
+          <!-- Done! -->
+        </div>
+        <div class="minutesScroll">
+          <!-- Just one input :) -->
+          Choose minutes for each block created (15-60 min)
           <input type="number" id="timeOfBlocks" name="timeOfBlocks" value="15" min="15" max="60" step="1" />
-        <!-- Done! -->
+          <!-- Done! -->
+        </div>
       </div>
-    <Button id="createSession" type="submit">Create Session</Button>
-    </form> 
+      <div class="sessionButtonWrapper">
+        <Button id="createSession" type="submit">Create Session</Button>
+      </div>
+    </form>
+  </div>
+  <footer>
+    <p>&copy; Thomas Nielsen & Adriano Amadao Ravina</p><br>
+  </footer>
 </body>
+
 </html>
