@@ -8,8 +8,17 @@
     <title>Student Page</title>
 
     <style>
+        body {
+            margin: 0;
+            background-image: url(https://thumbs.dreamstime.com/z/laughing-african-american-male-student-computer-group-students-classroom-college-laughing-african-american-male-158027381.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: unset;
+        }
+
         h1 {
             padding: 20px;
+            cursor: pointer;
         }
 
         .courseOverview {
@@ -19,55 +28,146 @@
             position: relative;
             padding: 10px;
             padding-top: 10px;
+            width: 40%;
+            margin: auto;
+            margin-top: 30px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            background-color: white;
+            opacity: 0.97;
+
         }
 
         .courseHeader {
             font-size: 20px;
             padding: 10px;
+            margin: 30px auto 20px;
+            width: 70%;
         }
 
         .courseDescription {
             font-size: 16px;
             text-align: center;
             padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
+
 
         .attend {
             width: auto;
-            background-color: red;
+            background-color: #EA5045;
             font-weight: bold;
             color: white;
             display: block;
-            padding: 10px;
+            padding: 10px 40px;
             margin-top: 10px;
+            font-size: 19px;
+            cursor: pointer;
         }
+
+        .attend:hover {
+            background-color: red;
+        }
+
         .centerButton {
             display: flex;
-        justify-content: center;
+            justify-content: center;
+        }
+
+        .headerStyle {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .logOut {
+            width: 150px;
+            background-color: #233249;
+            color: white;
+        }
+
+        .bigHeader {
+            background-color: #EA5045;
+        }
+
+        .bigHeader h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        input.inputCourse {
+            height: 30px;
+            width: 200px;
+            padding: 5px 8px;
+            box-shadow: rgb(50 50 105 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
+        }
+
+        .navBar {
+            position: absolute;
+            top: 30px;
+            left: 19px
+        }
+
+        .navBar a {
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navBar a:hover {
+            background-color: #233249;
+            color: #f2f2f2;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #EA5045;
+            color: black;
+            position: absolute;
+            bottom: 0; 
+            width: 100%;
+        }
+        footer p {
+            margin-bottom: 0; 
         }
     </style>
 </head>
+<header class="bigHeader" style="position: relative;">
+    <h1>Student Page</h1>
+    <div class="headerStyle"> <button class="logOut">Log Out</button></div>
+    <div class="navBar">
+        <a href="#">Student Page</a>
+        <a href="#">Statistics Page</a>
+    </div>
+
+
+</header>
 
 <body>
-    <h1>Student Page</h1>
+
     <div class="courseOverview">
-        Try your code
+        <h2>Register Your Attendance</h2>
         <div class="courseHeader">
-            Insert code the teacher has given you and press the button to clock in to your class!
+            Insert the code your teacher has given you and press the button to check in to your class!
         </div>
         <form action="/checkIn" method="post">
-            <input type="text" placeholder="Enter Code" name="attendanceCode" required>
+            <input class="inputCourse" type="text" placeholder="Enter Code" name="attendanceCode" required>
             <div class="courseDescription">
-                this is the student code validator
+                <div class="validateText">Press here to record your attendance</div>
                 <div class="centerButton">
                     <button type="submit" class="attend">
-                        Attend button
+                        Attend
                     </button>
                 </div>
             </div>
         </form>
-        
-    </div>
-</body>
 
+    </div>
+ 
+</body>
+<footer>
+    <p>&copy; Thomas Nielsen & Adriano Amadao Ravina</p><br>
+  </footer>
 </html>
