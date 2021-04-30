@@ -1,5 +1,5 @@
 const path = require("path");
-const { createSession, createBlock, checkIn, createStudentBlock } = require("../requests/Sessions.Requests");
+const { createSession, createBlock, checkIn, createStudentBlock, getTeacherSessions } = require("../requests/Sessions.Requests");
 
 const SessionsEndpoint = (app) => {
   app.post("/createSession", async (req, res) => {
@@ -65,6 +65,21 @@ const SessionsEndpoint = (app) => {
        */
 
       //res.status(200).json({ msg: "date retrieved!"});
+      
+    } catch (error) {
+      console.log("Endpoint error: "+error);
+      res.status(200).json({ msg: "Could not create block student row" });
+    }
+  });
+
+  app.get("/getTeacherSessions", async (req, res) => {
+    try {
+
+      const sessions = await getTeacherSessions(1);
+      console.log(sessions)
+
+      res.render('teacherSessions', {data : sessions})
+
       
     } catch (error) {
       console.log("Endpoint error: "+error);

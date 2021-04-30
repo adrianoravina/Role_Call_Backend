@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Sessions</title>
+
+    <style type="text/css">
+        .div-table
+        {
+            display:  table;
+            width:auto;
+            background-color:#eee;
+            border:1px solid  #666666;
+            border-spacing:5px;/*cellspacing:poor IE support for  this*/
+           /* border-collapse:separate;*/
+        }
+    
+        .row
+        {
+           display:table-row;
+           width:auto;
+        }
+    
+        .col
+        {
+            float:left;/*fix for  buggy browsers*/
+            display:table-column;
+            width:200px;
+            background-color:#ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teacher Sessions</h1>
+    <h2> Welcome : <%= data.s_teacherId %> </h2>
+    <div class="div-table">
+        <div class="header-row">
+            <div class="col">Session Id</div>
+            <div class="col">Course name</div>
+            <div class="col">Class groups</div>
+            <div class="col">Date and time</div>
+            <div class="col">Status</div>
+            <div class="col"></div>
+        </div>
+        <% for(var i=0; i < data.length; i++) { %>
+        <div class="row">
+            <div class="col"><%= data[i].session_id %></div>
+            <div class="col"><%= data[i].course_name %></div>
+            <div class="col"><%= data[i].class_group_name %></div>
+            <div class="col"><%= data[i].s_date %></div>
+            <div class="col"> In Session </div>
+            <div class="col"><button type="submit" name=<%= data[i].session_id %>>Go to blocks</button></div>
+        </div>
+        <% } %>
+        <div class="footer"></div>
+    </div>
+    
+</body>
+</html>

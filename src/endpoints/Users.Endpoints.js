@@ -27,10 +27,12 @@ const UsersEndpoint = (app) => {
             break;
           case "teacher":
             req.session.userTypeId = userData.userTypeRow.teacher_id;
+            req.session.userType = typeUser;
             res.redirect("/teacherPage");
             break;
           case "admin":
             req.session.userTypeId = userData.userTypeRow.admin_id;
+            req.session.userType = typeUser;
             res.redirect("/");
             break;
           default:

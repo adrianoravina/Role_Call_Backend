@@ -6,27 +6,32 @@ require("dotenv").config();
 const { mysqlConnect } = require("./database/Connection");
 const cors = require("cors");
 
-const {
-  SessionsEndpoint,
-  UsersEndpoint
-} = require("./endpoints");
+const { SessionsEndpoint, UsersEndpoint } = require("./endpoints");
 
-const { authUser, loggedInUser } = require("./authentication/basicAuth.js")
+const { authUser, loggedInUser } = require("./authentication/basicAuth.js");
 
 //const iwlist = require('wireless-tools/iwlist');
 const app = express();
 
-app.use(session({
-  name: "role",
-  resave: false,
-  saveUninitialized: false,
-  secret: "its,a,secret",
-  cookie: {
-    maxAge: 1000 * 60 *60,
-    sameSite: true,
-    secure: false
-  }
-}));
+//view engine
+app.set('view engine', 'ejs');
+//app.set('views', __dirname + '../views');
+//app.set('views', { root: path.join(__dirname, "../views") });
+
+
+app.use(
+  session({
+    name: "role",
+    resave: false,
+    saveUninitialized: false,
+    secret: "its,a,secret",
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+      sameSite: true,
+      secure: false,
+    },
+  })
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -48,36 +53,55 @@ router.get('/', homeController.checkLogin);
 router.post('/login', homeController.Login);
 router.post('/signup', homeController.SignUp);
 */
-app.get('/', async (req, res) => {
-
-    //res.sendFile(`<h1>Activo! con ${results.s_firstName}</h1>`);
-    res.sendFile('index.html', {root: path.join(__dirname, '../views')});
-
+app.get("/", async (req, res) => {
+  //res.sendFile(`<h1>Activo! con ${results.s_firstName}</h1>`);
+  res.sendFile("index.html", { root: path.join(__dirname, "../views") });
 });
 
-app.get('/loginForm', loggedInUser, async (req, res) => {
-
-  res.sendFile('loginForm.html', {root: path.join(__dirname, '../views')});
-
+app.get("/loginForm", loggedInUser, async (req, res) => {
+  res.sendFile("loginForm.html", { root: path.join(__dirname, "../views") });
 });
 
-app.get('/teacherPage', authUser, async (req, res) => {
+app.get("/teacherPage", authUser, async (req, res) => {
+  switch (req.session.userType) {
+    case "student":
+      res.redirect("/studentPage");
+      break;
+    case "admin":
+      res.redirect("/userForm");
+      break;
+  }
 
-  res.sendFile('teacherPage.html', {root: path.join(__dirname, '../views')});
-
+  res.sendFile("teacherPage.html", { root: path.join(__dirname, "../views") });
 });
 
-app.get('/studentPage', authUser, async (req, res) => {
-
-  res.sendFile('studentPage.html', {root: path.join(__dirname, '../views')});
-
+app.get("/teacherSessions", async (req, res) => {
+  
+  res.render('teacherSessions', {teacherName : 'Teacher 1'})
 });
 
-app.get('/userForm', async (req, res) => {
+app.get("/studentPage", authUser, async (req, res) => {
+  switch (req.session.userType) {
+    case "teacher":
+      res.redirect("/teacherPage");  
+      break;
+    case "admin":
+      res.redirect("/userForm");
+      break;
+  }
 
-  res.sendFile('userForm.html', {root: path.join(__dirname, '../views')});
-
+  res.sendFile("studentPage.html", { root: path.join(__dirname, "../views") });
 });
+
+app.get("/userForm", async (req, res) => {
+  res.sendFile("userForm.html", { root: path.join(__dirname, "../views") });
+});
+
+app.get("/studentStatistics", async (req, res) => {
+  res.sendFile("studentStatistics.html", { root: path.join(__dirname, "../views") });
+});
+
+
 
 /**
  app.get('/wifi', async (req, res) => {
@@ -98,15 +122,10 @@ app.get('/userForm', async (req, res) => {
 });
  */
 
-
-  
-
 app.listen(PORT, () => {
-    
-    console.log(`\x1b[36m%s\x1b[0m`, `Server is up on ${PORT}`);
-    console.log(`\x1b[36m%s\x1b[0m`, `---------------------------------------`);
-  });
+  console.log(`\x1b[36m%s\x1b[0m`, `Server is up on ${PORT}`);
+  console.log(`\x1b[36m%s\x1b[0m`, `---------------------------------------`);
+});
 
-
-  SessionsEndpoint(app);
-  UsersEndpoint(app);
+SessionsEndpoint(app);
+UsersEndpoint(app);

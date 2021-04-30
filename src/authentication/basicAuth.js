@@ -1,36 +1,31 @@
-
-
 const authUser = (req, res, next) => {
-    if(!req.session.userTypeId) {
-        res.redirect("/loginForm")
-    }
+  if (!req.session.userTypeId) {
+    res.redirect("/loginForm");
+  }
 
 
-    next()
+  next() 
 };
 
 const loggedInUser = (req, res, next) => {
-    if(req.session.userTypeId) {
-
-        switch(req.session.userType){
-            case "student":
-                res.redirect("/studentPage")
-                break;
-            case "teacher":
-                res.redirect("/teacherPage")
-                break;
-            case "admin":
-                res.redirect("/userForm")
-                break;
-        }
-       
+  if (req.session.userTypeId) {
+    switch (req.session.userType) {
+      case "student":
+        res.redirect("/studentPage");
+        break;
+      case "teacher":
+        res.redirect("/teacherPage");
+        break;
+      case "admin":
+        res.redirect("/userForm");
+        break;
     }
+  }
 
-    next()
-    
+  next();
 };
 
 module.exports = {
-    authUser,
-    loggedInUser
-}
+  authUser,
+  loggedInUser,
+};

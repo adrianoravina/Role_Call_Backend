@@ -63,4 +63,19 @@ const createStudentBlock = async (attendanceCode, studentId) => {
     
 };
 
-  module.exports = { createSession, createBlock, checkIn, createStudentBlock };
+const getTeacherSessions = async (teacherId) => {
+    const sql = "SELECT * FROM sessions WHERE s_teacherId = "+teacherId;
+
+    const results = await mysqlConnect
+    .promise()
+    .query(sql)
+    .then(([rows, fields]) => {
+      return rows;
+    })
+    .catch(console.log);
+
+    return results;
+    
+};
+
+  module.exports = { createSession, createBlock, checkIn, createStudentBlock, getTeacherSessions };
