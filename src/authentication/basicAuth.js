@@ -5,6 +5,7 @@ const authUser = (req, res, next) => {
         res.redirect("/loginForm")
     }
 
+
     next()
 };
 
@@ -25,8 +26,7 @@ const loggedInUser = (req, res, next) => {
        
     }
 
-    
-
+    next()
     
 };
 
