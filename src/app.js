@@ -53,7 +53,7 @@ router.get('/', homeController.checkLogin);
 router.post('/login', homeController.Login);
 router.post('/signup', homeController.SignUp);
 */
-app.get("/", async (req, res) => {
+app.get("/", authUser, async (req, res) => {
   //res.sendFile(`<h1>Activo! con ${results.s_firstName}</h1>`);
   res.sendFile("index.html", { root: path.join(__dirname, "../views") });
 });
@@ -75,11 +75,6 @@ app.get("/teacherPage", authUser, async (req, res) => {
   res.sendFile("teacherPage.html", { root: path.join(__dirname, "../views") });
 });
 
-app.get("/teacherSessions", async (req, res) => {
-  
-  res.render('teacherSessions', {teacherName : 'Teacher 1'})
-});
-
 app.get("/studentPage", authUser, async (req, res) => {
   switch (req.session.userType) {
     case "teacher":
@@ -95,10 +90,6 @@ app.get("/studentPage", authUser, async (req, res) => {
 
 app.get("/userForm", async (req, res) => {
   res.sendFile("userForm.html", { root: path.join(__dirname, "../views") });
-});
-
-app.get("/studentStatistics", async (req, res) => {
-  res.sendFile("studentStatistics.html", { root: path.join(__dirname, "../views") });
 });
 
 

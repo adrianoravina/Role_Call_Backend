@@ -1,17 +1,37 @@
 const path = require("path");
-const { createSession, createBlock, checkIn, createStudentBlock, getTeacherSessions } = require("../requests/Sessions.Requests");
+const {
+  createSession,
+  createBlock,
+  checkIn,
+  createStudentBlock,
+  getTeacherSessions,
+  getTeacherBlocks,
+  getStudentStatistics
+} = require("../requests/Sessions.Requests");
 
 const SessionsEndpoint = (app) => {
   app.post("/createSession", async (req, res) => {
     try {
-
-      console.log(req.body)
-      const {courseName, classGroups, descriptionCourse, numOfBlocks, timeOfBlocks}  = req.body;
+      console.log(req.body);
+      const {
+        courseName,
+        classGroups,
+        descriptionCourse,
+        numOfBlocks,
+        timeOfBlocks,
+      } = req.body;
       const teacherId = 1;
-      const geoLat = 55.70372700;
-      const geoLong = 12.53755300;
+      const geoLat = 55.703727;
+      const geoLong = 12.537553;
 
-      const sessionData = [courseName, descriptionCourse, classGroups, teacherId, geoLat, geoLong];
+      const sessionData = [
+        courseName,
+        descriptionCourse,
+        classGroups,
+        teacherId,
+        geoLat,
+        geoLong,
+      ];
 
       const sessionId = await createSession(sessionData);
 
@@ -19,41 +39,37 @@ const SessionsEndpoint = (app) => {
 
       let blockNum = numOfBlocks;
 
-        while(blockNum != 0){
-            await createBlock(blocksData);
-            blockNum--;            
-        } 
+      while (blockNum != 0) {
+        await createBlock(blocksData);
+        blockNum--;
+      }
 
-        
-
-        //use block Id instead of sessionId
+      //use block Id instead of sessionId
       //res.status(200).json({ msg: "session created", attendanceCode: sessionId});
       //res.sendFile('studentPage.html', {root: path.join(__dirname, '../../views')})
-      res.redirect("/teacherPage");
-      
+      res.redirect("/getTeacherSessions");
     } catch (error) {
-      console.log("Endpoint error: "+error);
+      console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create new Order" });
     }
   });
 
   app.get("/checkIn", async (req, res) => {
     try {
-
       //const data  = req.body;
       const { attendanceCode } = req.body;
       const studentId = 1;
 
       const booleanCode = await checkIn(attendanceCode);
 
-      if(booleanCode){
+      if (booleanCode) {
         await createStudentBlock(attendanceCode, studentId);
         res.redirect("/teacherPage");
-      }else{
+      } else {
         res.redirect("/loginForm");
       }
 
-     /**
+      /**
       const str = JSON.stringify(sessionDate).split("T");
       const time = str[1].split(".");
       const codeHour = time[0];
@@ -65,29 +81,51 @@ const SessionsEndpoint = (app) => {
        */
 
       //res.status(200).json({ msg: "date retrieved!"});
-      
     } catch (error) {
-      console.log("Endpoint error: "+error);
+      console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create block student row" });
     }
   });
 
   app.get("/getTeacherSessions", async (req, res) => {
     try {
-
       const sessions = await getTeacherSessions(1);
-      console.log(sessions)
+      console.log(sessions);
 
-      res.render('teacherSessions', {data : sessions})
-
-      
+      res.render("teacherSessions", { data: sessions });
     } catch (error) {
-      console.log("Endpoint error: "+error);
+      console.log("Endpoint error: " + error);
+      res.status(200).json({ msg: "Could not get teacher session" });
+    }
+  });
+
+  app.post("/getTeacherBlocks", async (req, res) => {
+    try {
+      const { sessionId } = req.body;
+
+      const blocks = await getTeacherBlocks(sessionId);
+      console.log(blocks);
+
+      res.render('teacherBlocks', {data : blocks})
+    } catch (error) {
+      console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create block student row" });
     }
   });
 
+  app.get("/studentStatistics", async (req, res) => {
+    try {
+      
+      await getStudentStatistics();
+
+      res.render('studentStatistics')
+    } catch (error) {
+      console.log("Endpoint error: " + error);
+      res.status(200).json({ msg: "Could not create block student row" });
+    }
+  });
 };
+
 
 
 module.exports = SessionsEndpoint;

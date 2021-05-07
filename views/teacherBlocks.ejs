@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Blocks</title>
+
+    <style type="text/css">
+        .div-table
+        {
+            display:  table;
+            width:auto;
+            background-color:#eee;
+            border:1px solid  #666666;
+            border-spacing:5px;/*cellspacing:poor IE support for  this*/
+           /* border-collapse:separate;*/
+        }
+    
+        .row
+        {
+           display:table-row;
+           width:auto;
+        }
+    
+        .col
+        {
+            float:left;/*fix for  buggy browsers*/
+            display:table-column;
+            width:200px;
+            background-color:#ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teacher Blocks</h1>
+    <h2> Welcome </h2>
+    <form action="" method="post">
+    <div class="div-table">
+        <div class="header-row">
+            <div class="col">Block Id</div>
+            <div class="col">Duration</div>
+            <div class="col">Status</div>
+            <div class="col"></div>
+        </div>
+        <% for(var i=0; i < data.length; i++) { %>
+        <div class="row">
+            <div class="col"><%= data[i].block_id %></div>
+            <div class="col"><%= data[i].b_duration_min %></div>
+            <div class="col"> In Session </div>
+            <div class="col"><button type="submit" name="blockId" value=<%= data[i].block_id %>>Start Block</button></div>
+        </div>
+        <% } %>
+        <div class="footer"></div>
+    </div>
+</form>
+    
+</body>
+</html>

@@ -136,7 +136,6 @@
       text-align: center;
       background-color: #EA5045;
       color: black;
-      position: absolute;
       bottom: 0;
       width: 100%;
     }
@@ -151,11 +150,11 @@
   <div class="headerStyle"> <button class="logOut">Log Out</button></div>
   <div class="navBar">
     <a href="#">Teacher Page</a>
-    <a href="#">Statistics Page</a>
+    <a href="/getTeacherSessions">Sessions Page</a>
   </div>
 
 
-</header>
+</header> 
 
 <body>
   <div class="sessionsWrapper">
@@ -163,22 +162,22 @@
     <form action="/createSession" method="post">
       <div class="input-wrapper">
         <label for="courseName">Name of the Course</label>
-        <input style="display: block;" id="courseName" name="courseName"></input>
+        <input style="display: block;" id="courseName" name="courseName" required></input>
         <label for="classGroups">Which class groups should attend</label>
-        <textarea style="display: block;" id="classGroups" name="classGroups" rows="2" cols="30"></textarea>
+        <textarea style="display: block;" id="classGroups" name="classGroups" rows="2" cols="30" required></textarea>
         <label for="descriptionCourse">Description of the course</label>
-        <textarea style="display: block;" id="descriptionCourse" name="descriptionCourse" rows="4" cols="30">
+        <textarea style="display: block;" id="descriptionCourse" name="descriptionCourse" rows="4" cols="30" required>
       </textarea>
         <div class="numberScroll">
           <!-- Just one input :) -->
           Choose number of blocks you want to create (1-6)
-          <input type="number" id="numOfBlocks" name="numOfBlocks" value="1" min="1" max="6" step="1" />
+          <input type="number" id="numOfBlocks" name="numOfBlocks" value="1" min="1" max="6" step="1" required/>
           <!-- Done! -->
         </div>
         <div class="minutesScroll">
           <!-- Just one input :) -->
           Choose minutes for each block created (15-60 min)
-          <input type="number" id="timeOfBlocks" name="timeOfBlocks" value="15" min="15" max="60" step="1" />
+          <input type="number" id="timeOfBlocks" name="timeOfBlocks" value="15" min="15" max="60" step="1" required/>
           <!-- Done! -->
         </div>
       </div>
@@ -188,7 +187,7 @@
     </form>
   </div>
   <footer>
-    <p>&copy; Thomas Nielsen & Adriano Amadao Ravina</p><br>
+    <p>&copy; Thomas Nielsen & Adriano Ravina</p><br>
   </footer>
 </body>
 
