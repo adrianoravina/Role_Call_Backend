@@ -115,10 +115,10 @@ const SessionsEndpoint = (app) => {
 
   app.get("/studentStatistics", async (req, res) => {
     try {
-      
-      await getStudentStatistics();
+      const studentId = 2;
+      const studentStats = await getStudentStatistics(studentId);
 
-      res.render('studentStatistics')
+      res.render('studentStatistics', {data: studentStats})
     } catch (error) {
       console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create block student row" });

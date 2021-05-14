@@ -6,6 +6,131 @@
     <title>Teacher Blocks</title>
 
     <style type="text/css">
+
+body {
+            margin: 0;
+            background-image: url(https://thumbs.dreamstime.com/z/laughing-african-american-male-student-computer-group-students-classroom-college-laughing-african-american-male-158027381.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: unset;
+        }
+
+        h1 {
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .courseOverview {
+            border: 1px solid;
+            text-align: center;
+            height: auto;
+            position: relative;
+            padding: 10px;
+            padding-top: 10px;
+            width: 40%;
+            margin: auto;
+            margin-top: 30px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            background-color: white;
+            opacity: 0.97;
+
+        }
+
+        .courseHeader {
+            font-size: 20px;
+            padding: 10px;
+            margin: 30px auto 20px;
+            width: 70%;
+        }
+
+        .courseDescription {
+            font-size: 16px;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+
+        .attend {
+            width: auto;
+            background-color: #EA5045;
+            font-weight: bold;
+            color: white;
+            display: block;
+            padding: 10px 40px;
+            margin-top: 10px;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        .attend:hover {
+            background-color: red;
+        }
+
+        .centerButton {
+            display: flex;
+            justify-content: center;
+        }
+
+        .headerStyle {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .logOut {
+            width: 150px;
+            background-color: #233249;
+            color: white;
+        }
+
+        .bigHeader {
+            background-color: #EA5045;
+        }
+
+        .bigHeader h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+ 
+
+        .navBar {
+            position: absolute;
+            top: 30px;
+            left: 19px
+        }
+
+        .navBar a {
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navBar a:hover {
+            background-color: #233249;
+            color: #f2f2f2;
+        }
+        input.inputCourse {
+            height: 30px;
+            width: 200px;
+            padding: 5px 8px;
+            box-shadow: rgb(50 50 105 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
+        }
+        footer {
+            text-align: center;
+            background-color: #EA5045;
+            color: black;
+            position: absolute;
+            bottom: 0; 
+            width: 100%;
+        }
+        footer p {
+            margin-bottom: 0; 
+        }
         .div-table
         {
             display:  table;
@@ -44,17 +169,17 @@
     <form action="" method="post">
         <div class="div-table">
             <div class="header-row">
-                <div class="col">Block Id</div>
-                <div class="col">Duration</div>
-                <div class="col">Status</div>
-                <div class="col"></div>
+                <div class="col">Session Id</div>
+                <div class="col">Course Name</div>
+                <div class="col">Date and Time</div>
+                <div class="col">Attendance</div>
             </div>
             <% for(var i=0; i < data.length; i++) { %>
             <div class="row">
-                <div class="col"><%= data[i].block_id %></div>
-                <div class="col"><%= data[i].b_duration_min %></div>
-                <div class="col"> In Session </div>
-                <div class="col"><button type="submit" name="blockId" value=<%= data[i].block_id %>>Start Block</button></div>
+                <div class="col"><%= data[i].session_id %></div>
+                <div class="col"><%= data[i].course_name %></div>
+                <div class="col"> <%= data[i].s_date %> </div>
+                <div class="col"><%= data[i].blockAtt %></div>
             </div>
             <% } %>
         <div class="footer"></div>

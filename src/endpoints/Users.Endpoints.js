@@ -7,9 +7,6 @@ const UsersEndpoint = (app) => {
       const { email, password } = req.body;
 
       const userData = await loginUser(email);
-
-      console.log(userData.userRow.type_user)
-
       
       const sqlPassword = userData.userRow.u_password;
       const typeUser = userData.userRow.type_user;

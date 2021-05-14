@@ -86,18 +86,16 @@ const getTeacherBlocks = async (sessionId) => {
   return results;
 };
 
-const getStudentStatistics = async (teacherId) => {
-  const sql = "SELECT * FROM sessions WHERE s_teacherId = " + teacherId;
+const getStudentStatistics = async (studentId) => {
+  const sql = "CALL SP_STUDENT_STATS(?)";
 
-  const results = await mysqlConnect
+  return await mysqlConnect
     .promise()
-    .query(sql)
+    .query(sql, studentId)
     .then(([rows, fields]) => {
-      return rows;
+      return rows[0];
     })
     .catch(console.log);
-
-  return results;
 };
 
 module.exports = {
