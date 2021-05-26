@@ -98,6 +98,18 @@ const getStudentStatistics = async (studentId) => {
     .catch(console.log);
 };
 
+const startBlock = async (blockId) => {
+  const sql = "UPDATE blocks SET b_status = 'In Session' WHERE block_id = (?)";
+
+  return await mysqlConnect
+    .promise()
+    .query(sql, blockId)
+    .then(([rows, fields]) => {
+      return rows;
+    })
+    .catch(console.log);
+};
+
 module.exports = {
   createSession,
   createBlock,
@@ -106,4 +118,5 @@ module.exports = {
   getTeacherSessions,
   getTeacherBlocks,
   getStudentStatistics,
+  startBlock
 };

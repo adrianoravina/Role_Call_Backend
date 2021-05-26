@@ -20,7 +20,7 @@ const UsersEndpoint = (app) => {
           case "student":
             req.session.userTypeId = userData.userTypeRow.student_id;
             req.session.userType = typeUser;
-            res.redirect("/studentPage");        
+            res.render("studentPage", {correctCode : "null"});        
             break;
           case "teacher":
             req.session.userTypeId = userData.userTypeRow.teacher_id;
@@ -57,6 +57,14 @@ const UsersEndpoint = (app) => {
       console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create user :(" });
     }
+  });
+
+  app.get("/logOut", async (req, res) =>{
+    
+    req.session.destroy( () =>{
+
+      res.redirect('/');
+    })
   });
 };
 

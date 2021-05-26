@@ -6,10 +6,12 @@ const {
   createStudentBlock,
   getTeacherSessions,
   getTeacherBlocks,
-  getStudentStatistics
+  getStudentStatistics,
+  startBlock,
 } = require("../requests/Sessions.Requests");
 
 const SessionsEndpoint = (app) => {
+
   app.post("/createSession", async (req, res) => {
     try {
       console.log(req.body);
@@ -54,19 +56,20 @@ const SessionsEndpoint = (app) => {
     }
   });
 
-  app.get("/checkIn", async (req, res) => {
+  app.post("/checkIn", async (req, res) => {
     try {
       //const data  = req.body;
       const { attendanceCode } = req.body;
+      console.log(attendanceCode);
       const studentId = 1;
 
       const booleanCode = await checkIn(attendanceCode);
 
       if (booleanCode) {
         await createStudentBlock(attendanceCode, studentId);
-        res.redirect("/teacherPage");
+        res.render("studentPage", { correctCode: "true" });
       } else {
-        res.redirect("/loginForm");
+        res.render("studentPage", { correctCode: "false" });
       }
 
       /**
@@ -106,7 +109,7 @@ const SessionsEndpoint = (app) => {
       const blocks = await getTeacherBlocks(sessionId);
       console.log(blocks);
 
-      res.render('teacherBlocks', {data : blocks})
+      res.render("teacherBlocks", { data: blocks });
     } catch (error) {
       console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create block student row" });
@@ -118,14 +121,28 @@ const SessionsEndpoint = (app) => {
       const studentId = 2;
       const studentStats = await getStudentStatistics(studentId);
 
-      res.render('studentStatistics', {data: studentStats})
+      res.render("studentStatistics", { data: studentStats });
+    } catch (error) {
+      console.log("Endpoint error: " + error);
+      res.status(200).json({ msg: "Could not create block student row" });
+    }
+  });
+
+  app.post("/startBlock", async (req, res) => {
+    try {
+      const { blockId } = req.body;
+      console.log(blockId);
+
+      const sqlResponse = await startBlock(blockId);
+
+      console.log(sqlResponse);
+
+      //res.render('studentStatistics', {data: studentStats})
     } catch (error) {
       console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create block student row" });
     }
   });
 };
-
-
 
 module.exports = SessionsEndpoint;

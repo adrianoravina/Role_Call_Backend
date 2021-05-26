@@ -11,7 +11,7 @@ const loggedInUser = (req, res, next) => {
   if (req.session.userTypeId) {
     switch (req.session.userType) {
       case "student":
-        res.redirect("/studentPage");
+        res.render("/studentPage");
         break;
       case "teacher":
         res.redirect("/teacherPage");

@@ -136,7 +136,7 @@
 </head>
 <header class="bigHeader" style="position: relative;">
     <h1>Student Page</h1>
-    <div class="headerStyle"> <button class="logOut">Log Out</button></div>
+    <div class="headerStyle"> <button class="logOut" ><a href="/logOut">Log Out</a></button></div>
     <div class="navBar">
         <a href="#">Student Page</a>
         <a href="/studentStatistics">Statistics Page</a>
@@ -154,6 +154,15 @@
         </div>
         <form action="/checkIn" method="post">
             <input class="inputCourse" type="text" placeholder="Enter Code" name="attendanceCode" required>
+            <% if (correctCode == "true") {%>
+                <div class="correctCodeText">
+                    Thank you that was the correct code!
+                </div>
+                <% } else if (correctCode == "false"){ %>
+                    <div class="incorrectCodeText">
+                        Sorry wrong code please try again :(
+                    </div>
+                    <%} else {}%>
             <div class="courseDescription">
                 <div class="validateText">Press here to record your attendance</div>
                 <div class="centerButton">

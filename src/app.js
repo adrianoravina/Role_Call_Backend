@@ -15,7 +15,15 @@ const app = express();
 
 //view engine
 app.set('view engine', 'ejs');
-//app.set('views', __dirname + '../views');
+app.use(express.static("public"));
+//app.use(express.static(__dirname + '../public'));
+// Require static assets from public folder
+//app.use(express.static(path.join(__dirname, 'public')));
+
+// Set 'views' directory for any views 
+// being rendered res.render()
+app.set('views', path.join(__dirname, '../views'));
+//app.set('views', __dirname + '.././views');
 //app.set('views', { root: path.join(__dirname, "../views") });
 
 
@@ -39,7 +47,12 @@ app.use(express.json());
 const router = express.Router();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.static("public"));
+
+
+// Set view engine as EJS
+//app.engine('html', require('ejs').renderFile);
+//app.set('view engine', 'html');
+
 app.use("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -55,17 +68,17 @@ router.post('/signup', homeController.SignUp);
 */
 app.get("/", authUser, async (req, res) => {
   //res.sendFile(`<h1>Activo! con ${results.s_firstName}</h1>`);
-  res.sendFile("index.html", { root: path.join(__dirname, "../views") });
+  res.sendFile("loginForm.html", { root: path.join(__dirname, "./../views") });
 });
 
 app.get("/loginForm", loggedInUser, async (req, res) => {
-  res.sendFile("loginForm.html", { root: path.join(__dirname, "../views") });
+  res.sendFile("loginForm.html", { root: path.join(__dirname, "./../views") });
 });
 
 app.get("/teacherPage", authUser, async (req, res) => {
   switch (req.session.userType) {
     case "student":
-      res.redirect("/studentPage");
+      res.render("/studentPage");
       break;
     case "admin":
       res.redirect("/userForm");
@@ -77,7 +90,7 @@ app.get("/teacherPage", authUser, async (req, res) => {
 
 app.get("/studentPage", authUser, async (req, res) => {
   switch (req.session.userType) {
-    case "teacher":
+    case "teacher": 
       res.redirect("/teacherPage");  
       break;
     case "admin":
@@ -85,7 +98,8 @@ app.get("/studentPage", authUser, async (req, res) => {
       break;
   }
 
-  res.sendFile("studentPage.html", { root: path.join(__dirname, "../views") });
+  res.render('studentPage', {correctCode : "null"})
+  //res.sendFile("studentPage.html", { root: path.join(__dirname, "../views") });
 });
 
 app.get("/userForm", async (req, res) => {

@@ -6,6 +6,143 @@
     <title>Teacher Blocks</title>
 
     <style type="text/css">
+
+body {
+      margin: 0;
+      background-image: url(https://images.unsplash.com/photo-1586776977607-310e9c725c37?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: unset;
+    }
+
+    .headerStyle {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .logOut {
+      width: 150px;
+      background-color: #233249;
+      color: white;
+    }
+
+    .bigHeader {
+      background-color: #EA5045;
+    }
+
+    .bigHeader h1 {
+      text-align: center;
+      margin-top: 0;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+
+
+    .navBar {
+      position: absolute;
+      top: 30px;
+      left: 19px
+    }
+
+    .navBar a {
+      color: black;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .navBar a:hover {
+      background-color: #233249;
+      color: #f2f2f2;
+    }
+
+    .sessionsWrapper h2{
+      margin-bottom: 0;
+    }
+    .sessionsWrapper {
+      border: 1px solid;
+      text-align: center;
+      height: auto;
+      position: relative;
+      padding: 10px;
+      padding-top: 10px;
+      width: 40%;
+      margin: auto;
+      margin-top: 30px;
+      box-shadow: rgb(50 50 93 / 25%) 0px 50px 100px -20px, rgb(0 0 0 / 30%) 0px 30px 60px -30px, rgb(10 37 64 / 35%) 0px -2px 6px 0px inset;
+      background-color: white;
+      opacity: 0.97;
+    }
+
+    .sessionsWrapper form {
+      padding: 40px 20px 40px;
+
+    }
+
+    .input-wrapper {
+      width: 70%;
+      margin: auto;
+      text-align: left;
+    }
+
+    .input-wrapper textarea {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      margin-bottom: 40px;
+      height: 20px;
+    }
+
+    #numOfBlocks,
+    #timeOfBlocks {
+      width: 40px;
+    }
+
+    .numberScroll input,
+    .minutesScroll input {
+      float: right;
+      clear: both;
+    }
+
+    .sessionButtonWrapper {
+      clear: both;
+    }
+
+    .sessionButtonWrapper button {
+      background-color: #EA5045;
+      font-weight: bold;
+      color: white;
+      padding: 10px 40px;
+      margin-top: 20px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .numberScroll,
+    .minutesScroll {
+      clear: both;
+      margin-bottom: 40px;
+    }
+
+
+
+    footer {
+      text-align: center;
+      background-color: #EA5045;
+      color: black;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin-bottom: 0;
+    }
         .div-table
         {
             display:  table;
@@ -32,9 +169,17 @@
     </style>
 </head>
 <body>
-    <h1>Teacher Blocks</h1>
-    <h2> Welcome </h2>
-    <form action="" method="post">
+    <header class="bigHeader" style="position: relative;">
+        <h1>Teacher Page</h1>
+        <div class="headerStyle"> <button class="logOut">Log Out</button></div>
+        <div class="navBar">
+          <a href="/teacherPage">Teacher Page</a>
+          <a href="/getTeacherSessions">Sessions Page</a>
+        </div>
+      
+      
+      </header> 
+    <form action="/startBlock" method="post">
     <div class="div-table">
         <div class="header-row">
             <div class="col">Block Id</div>
@@ -46,13 +191,20 @@
         <div class="row">
             <div class="col"><%= data[i].block_id %></div>
             <div class="col"><%= data[i].b_duration_min %></div>
-            <div class="col"> In Session </div>
-            <div class="col"><button type="submit" name="blockId" value=<%= data[i].block_id %>>Start Block</button></div>
+            <div class="col"> <%= data[i].b_status %> </div>
+            <div class="col">
+              <button type="submit" name="blockId" value=<%= data[i].block_id %>
+               <% if(data[i].b_status == 'In Session' || data[i].b_status == 'Finished') { %>
+                disabled
+        <% } %>
+        >Start Block</button></div>
         </div>
         <% } %>
         <div class="footer"></div>
     </div>
 </form>
-    
+<footer>
+    <p>&copy; Thomas Nielsen & Adriano Ravina</p><br>
+  </footer>
 </body>
 </html>

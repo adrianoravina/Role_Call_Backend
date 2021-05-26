@@ -40,4 +40,5 @@ const loginUser = async (email) => {
   return {userRow, userTypeRow};
 };
 
+
 module.exports = { loginUser };
