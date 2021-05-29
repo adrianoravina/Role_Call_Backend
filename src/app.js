@@ -98,7 +98,8 @@ app.get("/studentPage", authUser, async (req, res) => {
       break;
   }
 
-  res.render('studentPage', {correctCode : "null"})
+  
+  res.render('studentPage', {correctCode : "null"}) 
   //res.sendFile("studentPage.html", { root: path.join(__dirname, "../views") });
 });
 

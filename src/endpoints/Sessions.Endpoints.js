@@ -36,10 +36,14 @@ const SessionsEndpoint = (app) => {
       ];
 
       const sessionId = await createSession(sessionData);
+      const status = "Pending"
 
-      const blocksData = [sessionId, timeOfBlocks];
+      const blocksData = [sessionId, timeOfBlocks, status];
 
       let blockNum = numOfBlocks;
+
+      console.log("num of blocks:")
+      console.log(numOfBlocks)
 
       while (blockNum != 0) {
         await createBlock(blocksData);
@@ -63,13 +67,18 @@ const SessionsEndpoint = (app) => {
       console.log(attendanceCode);
       const studentId = 1;
 
-      const booleanCode = await checkIn(attendanceCode);
+      const response = await checkIn(attendanceCode);
+      const booleanCode = JSON.stringify(response[0]);
+      const message = response[1];
+
+      console.log(booleanCode)
+      console.log(message)
 
       if (booleanCode) {
         await createStudentBlock(attendanceCode, studentId);
-        res.render("studentPage", { correctCode: "true" });
+        res.render("studentPage", { correctCode: booleanCode });
       } else {
-        res.render("studentPage", { correctCode: "false" });
+        res.render("studentPage", { correctCode: booleanCode  });
       }
 
       /**

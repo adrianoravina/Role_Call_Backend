@@ -13,7 +13,7 @@ const createSession = async (data) => {
 };
 
 const createBlock = async (blocksData) => {
-  const sql = "INSERT INTO blocks (b_sessionId, b_duration_min) VALUES(?,?)";
+  const sql = "INSERT INTO blocks (b_sessionId, b_duration_min, b_status) VALUES(?,?,?)";
 
   console.log(blocksData);
 
@@ -26,7 +26,7 @@ const createBlock = async (blocksData) => {
 
 const checkIn = async (attendanceCode) => {
   const sql =
-    "SELECT s_date FROM blocks as b LEFT JOIN sessions as s ON b.b_sessionId = s.session_Id " +
+    "SELECT s_date, now() as timeNow FROM blocks as b LEFT JOIN sessions as s ON b.b_sessionId = s.session_Id " +
     "where block_id =" +
     attendanceCode;
 
@@ -34,17 +34,21 @@ const checkIn = async (attendanceCode) => {
     .promise()
     .query(sql)
     .then(([rows, fields]) => {
-      return rows[0].s_date;
+      return rows[0];
     })
     .catch(console.log);
 
+  const minMargin = results.timeNow - results.s_date;
+  const maxMinutes = 900000;
+
   if (results == undefined) {
-    console.log("Wrong attendance code.");
-    return false;
+    return [false, "Wrong attendance code :("];
   } else {
-    console.log("Correct attendance code.");
-    return true;
+    if (maxMinutes < minMargin) {
+      return [false, "Time has expired!"];
+    }
   }
+  return [true, "Correct attendance code"];
 };
 
 const createStudentBlock = async (attendanceCode, studentId) => {
@@ -118,5 +122,5 @@ module.exports = {
   getTeacherSessions,
   getTeacherBlocks,
   getStudentStatistics,
-  startBlock
+  startBlock,
 };
