@@ -1,13 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Blocks</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Blocks</title>
 
-    <style type="text/css">
+  <style type="text/css">
+    /*logout Styling*/
+    @import url(https://fonts.googleapis.com/css?family=Oswald:400);
 
-body {
+    .navigation {
+      width: 100%;
+      background-color: black;
+    }
+
+    .navigation img {
+      width: 25px;
+      border-radius: 50px;
+      float: left;
+    }
+
+    .navigation .logout {
+      font-size: .8em;
+      font-family: 'Oswald', sans-serif;
+      position: relative;
+      right: -18px;
+      bottom: -4px;
+      overflow: hidden;
+      letter-spacing: 3px;
+      opacity: 0;
+      transition: opacity .45s;
+      -webkit-transition: opacity .35s;
+
+    }
+
+    .navigation .button {
+      text-decoration: none;
+      float: right;
+      padding: 12px;
+      margin: 15px;
+      color: white;
+      width: 25px;
+      background-color: #233249;
+      transition: width .35s;
+      -webkit-transition: width .35s;
+      overflow: hidden
+    }
+
+    .navigation a:hover {
+      width: 100px;
+    }
+
+    .navigation a:hover .logout {
+      opacity: .9;
+    }
+
+    .navigation a {
+      text-decoration: none;
+    }
+
+    /* main styling */
+    body {
       margin: 0;
       background-image: url(https://images.unsplash.com/photo-1586776977607-310e9c725c37?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
       background-size: cover;
@@ -47,7 +101,7 @@ body {
     }
 
     .navBar a {
-      transition: all 0.3s;
+      transition: all 0.2s;
       color: black;
       text-align: center;
       padding: 14px 16px;
@@ -60,9 +114,10 @@ body {
       color: #f2f2f2;
     }
 
-    .sessionsWrapper h2{
+    .sessionsWrapper h2 {
       margin-bottom: 0;
     }
+
     .sessionsWrapper {
       border: 1px solid;
       text-align: center;
@@ -140,74 +195,177 @@ body {
       bottom: 0;
       width: 100%;
       position: absolute;
-    bottom: 0;
+      bottom: 0;
     }
 
     footer p {
       margin-bottom: 0;
     }
-        .div-table
-        {
-            display:  table;
-            width:auto;
-            background-color:#eee;
-            border:1px solid  #666666;
-            border-spacing:5px;/*cellspacing:poor IE support for  this*/
-           /* border-collapse:separate;*/
-        }
-    
-        .row
-        {
-           display:table-row;
-           width:auto;
-        }
-    
-        .col
-        {
-            float:left;/*fix for  buggy browsers*/
-            display:table-column;
-            width:200px;
-            background-color:#ccc;
-        }
-    </style>
+
+    .div-table {
+      display: flex;
+      text-align: center;
+      background-color: #233249;
+      justify-content: center;
+      margin: auto;
+      width: 50%;
+      padding: 20px;
+      flex-direction: column;
+    }
+
+    .div-table .header-row {
+      display: flex;
+    }
+
+    .header-row .col {
+      display: inline-flex;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+
+    .div-table .header-row .row {
+      width: 100%;
+    }
+
+    .col.headerDate {
+      padding: 20px 0;
+    }
+
+    .col.button {
+      padding: 22px 0px;
+    }
+
+    .col.button button:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: #233249;
+      transition: all 0.3s;
+      border-radius: 2rem;
+      z-index: -1;
+    }
+
+    .col.button button:hover:before {
+      width: 100%;
+    }
+
+    .col.button button:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #EA5045;
+      border-radius: 2rem;
+      z-index: -2;
+    }
+
+    .col.button button:hover {
+      color: white;
+    }
+
+    .col.button button {
+      cursor: pointer;
+      background-color: #EA5045;
+      color: black;
+      border-radius: 2rem;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      padding: 9px 15px 9px 15px;
+      border-width: 1px;
+      border-style: outset;
+      border-color: grey;
+      border-image: initial;
+      box-shadow: rgb(0 0 0 / 20%) 0px 12px 28px 0px, rgb(0 0 0 / 10%) 0px 2px 4px 0px, rgb(255 255 255 / 5%) 0px 0px 0px 1px inset
+    }
+
+    .col button {
+      border: 0;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .col {
+      border: 1px black solid;
+      width: 100%;
+      padding: 29px 0px;
+      background-color: #EA5045;
+      min-height: 18px;
+    }
+
+    .col.headerDate {
+      padding: 38px 0;
+    }
+  </style>
 </head>
+
 <body>
-    <header class="bigHeader" style="position: relative;">
-        <h1>Teacher Page</h1>
-        <div class="headerStyle"> <button class="logOut">Log Out</button></div>
-        <div class="navBar">
-          <a href="/teacherPage">Teacher Page</a>
-          <a href="/getTeacherSessions">Sessions Page</a>
-        </div>
-      
-      
-      </header> 
-    <form action="/startBlock" method="post">
-    <div class="div-table">
-        <div class="header-row">
-            <div class="col">Block Id</div>
-            <div class="col">Duration</div>
-            <div class="col">Status</div>
-            <div class="col"></div>
-        </div>
-        <% for(var i=0; i < data.length; i++) { %>
-        <div class="row">
-            <div class="col"><%= data[i].block_id %></div>
-            <div class="col"><%= data[i].b_duration_min %></div>
-            <div class="col"> <%= data[i].b_status %> </div>
-            <div class="col">
-              <button type="submit" name="blockId" value=<%= data[i].block_id %>
-               <% if(data[i].b_status == 'In Session' || data[i].b_status == 'Finished') { %>
-                disabled
-        <% } %>
-        >Start Block</button></div>
-        </div>
-        <% } %>
-        <div class="footer"></div>
+  <header class="bigHeader" style="position: relative;">
+    <h1>Teacher Page</h1>
+    <div class="headerStyle">
+      <div class="navigation">
+
+        <a class="button" href="/logOut"">
+      <img src=" https://kea.dk/images/resources/kea_180.png">
+
+          <div class="logout">LOGOUT</div>
+
+        </a>
+
+      </div>
     </div>
-</form>
-<footer>
+    <div class="navBar">
+      <a href="/teacherPage">Teacher Page</a>
+      <a href="/getTeacherSessions">Sessions Page</a>
+    </div>
+
+
+  </header>
+  <form action="/startBlock" method="post">
+    <div class="div-table">
+      <div class="header-row">
+        <div class="col">Block Id</div>
+        <div class="col">Duration</div>
+        <div class="col">Status</div>
+        <div class="col">Start</div>
+      </div>
+      <% for(var i=0; i < data.length; i++) { %>
+        <div class="row">
+          <div class="col">
+            <%= data[i].block_id %>
+          </div>
+          <div class="col">
+            <%= data[i].b_duration_min %>
+          </div>
+          <div class="col">
+            <%= data[i].b_status %>
+          </div>
+          <div class="col button">
+            <button type="submit" name="blockId" value=<%=data[i].block_id %>
+              <% if(data[i].b_status=='In Session' || data[i].b_status=='Finished' ) { %>
+                disabled
+                <% } %>
+                  >Start Block
+            </button>
+          </div>
+        </div>
+        <% } %>
+          <div class="footer"></div>
+    </div>
+  </form>
+  <footer>
     <p>&copy; Thomas Nielsen & Adriano Ravina</p><br>
   </footer>
 </body>
+
 </html>

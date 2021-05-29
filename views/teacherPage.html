@@ -7,6 +7,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher Page</title>
   <style>
+    /*logout Styling*/
+    @import url(https://fonts.googleapis.com/css?family=Oswald:400);
+
+    .navigation {
+      width: 100%;
+      background-color: black;
+    }
+
+    .navigation img {
+      width: 25px;
+      border-radius: 50px;
+      float: left;
+    }
+
+    .navigation .logout {
+      font-size: .8em;
+      font-family: 'Oswald', sans-serif;
+      position: relative;
+      right: -18px;
+      bottom: -4px;
+      overflow: hidden;
+      letter-spacing: 3px;
+      opacity: 0;
+      transition: opacity .45s;
+      -webkit-transition: opacity .35s;
+
+    }
+
+    .navigation .button {
+      text-decoration: none;
+      float: right;
+      padding: 12px;
+      margin: 15px;
+      color: white;
+      width: 25px;
+      background-color: #233249;
+      transition: width .35s;
+      -webkit-transition: width .35s;
+      overflow: hidden
+    }
+
+    .navigation a:hover {
+      width: 100px;
+    }
+
+    .navigation a:hover .logout {
+      opacity: .9;
+    }
+
+    .navigation a {
+      text-decoration: none;
+    }
+
+    /* main styling */
     body {
       margin: 0;
       background-image: url(https://images.unsplash.com/photo-1586776977607-310e9c725c37?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
@@ -47,7 +101,7 @@
     }
 
     .navBar a {
-      transition: all 0.3s;
+      transition: all 0.2s;
       color: black;
       text-align: center;
       padding: 14px 16px;
@@ -60,9 +114,10 @@
       color: #f2f2f2;
     }
 
-    .sessionsWrapper h2{
+    .sessionsWrapper h2 {
       margin-bottom: 0;
     }
+
     .sessionsWrapper {
       border: 1px solid;
       text-align: center;
@@ -139,24 +194,39 @@
       color: black;
       width: 100%;
       position: absolute;
-    bottom: 0;
+      bottom: 0;
     }
 
     footer p {
       margin-bottom: 0;
     }
+
+    button#createSession:hover {
+      background-color: red;
+    }
   </style>
 </head>
 <header class="bigHeader" style="position: relative;">
   <h1>Teacher Page</h1>
-  <div class="headerStyle"> <button class="logOut" ><a href="/logOut">Log Out</a></button></div>
+  <div class="headerStyle">
+    <div class="navigation">
+
+      <a class="button" href="/logOut"">
+      <img src=" https://kea.dk/images/resources/kea_180.png">
+
+        <div class="logout">LOGOUT</div>
+
+      </a>
+
+    </div>
+  </div>
   <div class="navBar">
     <a href="#">Teacher Page</a>
-    <a href="/getTeacherSessions">Sessions Page</a>
+    <a href="/getTeacherSessions">Teacher Sessions</a>
   </div>
 
 
-</header> 
+</header>
 
 <body>
   <div class="sessionsWrapper">
@@ -173,13 +243,13 @@
         <div class="numberScroll">
           <!-- Just one input :) -->
           Choose number of blocks you want to create (1-6)
-          <input type="number" id="numOfBlocks" name="numOfBlocks" value="1" min="1" max="6" step="1" required/>
+          <input type="number" id="numOfBlocks" name="numOfBlocks" value="1" min="1" max="6" step="1" required />
           <!-- Done! -->
         </div>
         <div class="minutesScroll">
           <!-- Just one input :) -->
           Choose minutes for each block created (15-60 min)
-          <input type="number" id="timeOfBlocks" name="timeOfBlocks" value="15" min="15" max="60" step="1" required/>
+          <input type="number" id="timeOfBlocks" name="timeOfBlocks" value="15" min="15" max="60" step="1" required />
           <!-- Done! -->
         </div>
       </div>

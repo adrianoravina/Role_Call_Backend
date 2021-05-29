@@ -8,6 +8,60 @@
     <title>Student Page</title>
 
     <style>
+        /*logout Styling*/
+        @import url(https://fonts.googleapis.com/css?family=Oswald:400);
+
+        .navigation {
+            width: 100%;
+            background-color: black;
+        }
+
+        .navigation img {
+            width: 25px;
+            border-radius: 50px;
+            float: left;
+        }
+
+        .navigation .logout {
+            font-size: .8em;
+            font-family: 'Oswald', sans-serif;
+            position: relative;
+            right: -18px;
+            bottom: -4px;
+            overflow: hidden;
+            letter-spacing: 3px;
+            opacity: 0;
+            transition: opacity .45s;
+            -webkit-transition: opacity .35s;
+
+        }
+
+        .navigation .button {
+            text-decoration: none;
+            float: right;
+            padding: 12px;
+            margin: 15px;
+            color: white;
+            width: 25px;
+            background-color: #233249;
+            transition: width .35s;
+            -webkit-transition: width .35s;
+            overflow: hidden
+        }
+
+        .navigation a:hover {
+            width: 100px;
+        }
+
+        .navigation a:hover .logout {
+            opacity: .9;
+        }
+
+        .navigation a {
+            text-decoration: none;
+        }
+
+        /* main styling */
         body {
             margin: 0;
             background-image: url(https://thumbs.dreamstime.com/z/laughing-african-american-male-student-computer-group-students-classroom-college-laughing-african-american-male-158027381.jpg);
@@ -95,7 +149,7 @@
             margin-top: 0;
         }
 
- 
+
 
         .navBar {
             position: absolute;
@@ -109,7 +163,7 @@
             padding: 14px 16px;
             text-decoration: none;
             font-size: 17px;
-            transition: all 0.3s;
+            transition: all 0.2s;
 
         }
 
@@ -117,28 +171,65 @@
             background-color: #233249;
             color: #f2f2f2;
         }
+
         input.inputCourse {
             height: 30px;
             width: 200px;
             padding: 5px 8px;
             box-shadow: rgb(50 50 105 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
         }
+
         footer {
             text-align: center;
             background-color: #EA5045;
             color: black;
             position: absolute;
-            bottom: 0; 
+            bottom: 0;
             width: 100%;
         }
+
         footer p {
-            margin-bottom: 0; 
+            margin-bottom: 0;
+        }
+
+        .correctCodeText {
+            border: 1px solid;
+            margin: 10px 0px;
+            padding: 15px 10px 15px 10px;
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            color: #4F8A10;
+            background-color: #DFF2BF;
+            background-image: url(https://i.imgur.com/Q9BGTuy.png);
+        }
+
+
+        .incorrectCodeText {
+            color: #D8000C;
+            background-color: #FFBABA;
+            background-image: url(https://i.imgur.com/GnyDvKN.png);
+            border: 1px solid;
+            margin: 10px 0px;
+            padding: 15px 10px 15px 10px;
+            background-repeat: no-repeat;
+            background-position: 10px center;
         }
     </style>
 </head>
 <header class="bigHeader" style="position: relative;">
     <h1>Student Page</h1>
-    <div class="headerStyle"> <button class="logOut" ><a href="/logOut">Log Out</a></button></div>
+    <div class="headerStyle">
+        <div class="navigation">
+
+            <a class="button" href="/logOut"">
+              <img src=" https://kea.dk/images/resources/kea_180.png">
+
+                <div class="logout">LOGOUT</div>
+
+            </a>
+
+        </div>
+    </div>
     <div class="navBar">
         <a href="#">Student Page</a>
         <a href="/studentStatistics">Statistics Page</a>
@@ -156,29 +247,32 @@
         </div>
         <form action="/checkIn" method="post">
             <input class="inputCourse" type="text" placeholder="Enter Code" name="attendanceCode" required>
-            <% if (correctCode == "true") {%>
+
+            <% if (correctCode=="true" ) {%>
                 <div class="correctCodeText">
                     Correct attendance code!
                 </div>
-                <% } else if (correctCode == "false"){ %> 
+                <% } else if (correctCode=="false" ){ %>
                     <div class="incorrectCodeText">
                         Wrong attendance code or your code has expired :(
                     </div>
                     <%} else {}%>
-            <div class="courseDescription">
-                <div class="validateText">Press here to record your attendance</div>
-                <div class="centerButton">
-                    <button type="submit" class="attend">
-                        Attend
-                    </button>
-                </div>
-            </div>
+
+                        <div class="courseDescription">
+                            <div class="validateText">Press here to record your attendance</div>
+                            <div class="centerButton">
+                                <button type="submit" class="attend">
+                                    Attend
+                                </button>
+                            </div>
+                        </div>
         </form>
 
     </div>
- 
+
 </body>
 <footer>
     <p>&copy; Thomas Nielsen & Adriano Amadao Ravina</p><br>
-  </footer>
+</footer>
+
 </html>
