@@ -1,4 +1,6 @@
 const path = require("path");
+const { fork } = require("child_process");
+
 const {
   createSession,
   createBlock,
@@ -11,7 +13,6 @@ const {
 } = require("../requests/Sessions.Requests");
 
 const SessionsEndpoint = (app) => {
-
   app.post("/createSession", async (req, res) => {
     try {
       console.log(req.body);
@@ -36,14 +37,14 @@ const SessionsEndpoint = (app) => {
       ];
 
       const sessionId = await createSession(sessionData);
-      const status = "Pending"
+      const status = "Pending";
 
       const blocksData = [sessionId, timeOfBlocks, status];
 
       let blockNum = numOfBlocks;
 
-      console.log("num of blocks:")
-      console.log(numOfBlocks)
+      console.log("num of blocks:");
+      console.log(numOfBlocks);
 
       while (blockNum != 0) {
         await createBlock(blocksData);
@@ -62,6 +63,51 @@ const SessionsEndpoint = (app) => {
 
   app.post("/checkIn", async (req, res) => {
     try {
+      const childProcess = fork("./src/requests/Sessions.Requests");
+
+      //const data  = req.body;
+      const { attendanceCode } = req.body;
+      childProcess.send({ attendanceCode: attendanceCode });
+      childProcess.on("message", async (message) => {
+
+        
+        const studentId = 1;
+
+        const booleanCode = JSON.stringify(message[0]);
+
+        console.log(booleanCode);
+
+        if (booleanCode) {
+          await createStudentBlock(attendanceCode, studentId);
+          res.render("studentPage", { correctCode: booleanCode });
+        } else {
+          res.render("studentPage", { correctCode: booleanCode });
+        }
+      });
+
+      /**
+      const str = JSON.stringify(sessionDate).split("T");
+      const time = str[1].split(".");
+      const codeHour = time[0];
+      */
+
+      /**
+       console.log(new Date());
+      console.log(codeHour);
+       */
+
+      //res.status(200).json({ msg: "date retrieved!"});
+    } catch (error) {
+      console.log("Endpoint error: " + error);
+      res.status(200).json({ msg: "Could not create block student row" });
+    }
+  });
+
+  /*
+app.post("/checkIn", async (req, res) => {
+    try {
+
+      const childProcess = fork();
       //const data  = req.body;
       const { attendanceCode } = req.body;
       console.log(attendanceCode);
@@ -81,16 +127,16 @@ const SessionsEndpoint = (app) => {
         res.render("studentPage", { correctCode: booleanCode  });
       }
 
-      /**
+      /*
       const str = JSON.stringify(sessionDate).split("T");
       const time = str[1].split(".");
       const codeHour = time[0];
       */
 
-      /**
+  /*
        console.log(new Date());
       console.log(codeHour);
-       */
+       
 
       //res.status(200).json({ msg: "date retrieved!"});
     } catch (error) {
@@ -98,6 +144,7 @@ const SessionsEndpoint = (app) => {
       res.status(200).json({ msg: "Could not create block student row" });
     }
   });
+  */
 
   app.get("/getTeacherSessions", async (req, res) => {
     try {

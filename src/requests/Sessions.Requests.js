@@ -24,6 +24,15 @@ const createBlock = async (blocksData) => {
   });
 };
 
+process.on("message", async (message) => {
+
+  const response = await checkIn(message.attendanceCode)
+
+  console.log(response);
+  process.send(response)
+  process.exit()
+})
+
 const checkIn = async (attendanceCode) => {
   const sql =
     "SELECT s_date, now() as timeNow FROM blocks as b LEFT JOIN sessions as s ON b.b_sessionId = s.session_Id " +
@@ -50,6 +59,39 @@ const checkIn = async (attendanceCode) => {
   }
   return [true, "Correct attendance code"];
 };
+
+
+
+
+/*
+const checkIn = async (attendanceCode) => {
+  const sql =
+    "SELECT s_date, now() as timeNow FROM blocks as b LEFT JOIN sessions as s ON b.b_sessionId = s.session_Id " +
+    "where block_id =" +
+    attendanceCode;
+
+  const results = await mysqlConnect
+    .promise()
+    .query(sql)
+    .then(([rows, fields]) => {
+      return rows[0];
+    })
+    .catch(console.log);
+
+  const minMargin = results.timeNow - results.s_date;
+  const maxMinutes = 900000;
+
+  if (results == undefined) {
+    return [false, "Wrong attendance code :("];
+  } else {
+    if (maxMinutes < minMargin) {
+      return [false, "Time has expired!"];
+    }
+  }
+  return [true, "Correct attendance code"];
+};
+
+*/
 
 const createStudentBlock = async (attendanceCode, studentId) => {
   const sql =
