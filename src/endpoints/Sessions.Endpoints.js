@@ -1,5 +1,6 @@
 const path = require("path");
 const { fork } = require("child_process");
+const totalCpus = require("os").cpus().length;
 
 const {
   createSession,
@@ -63,14 +64,13 @@ const SessionsEndpoint = (app) => {
 
   app.post("/checkIn", async (req, res) => {
     try {
+      console.log(totalCpus);
       const childProcess = fork("./src/requests/Sessions.Requests");
 
       //const data  = req.body;
       const { attendanceCode } = req.body;
       childProcess.send({ attendanceCode: attendanceCode });
       childProcess.on("message", async (message) => {
-
-        
         const studentId = 1;
 
         const booleanCode = JSON.stringify(message[0]);
@@ -84,19 +84,6 @@ const SessionsEndpoint = (app) => {
           res.render("studentPage", { correctCode: booleanCode });
         }
       });
-
-      /**
-      const str = JSON.stringify(sessionDate).split("T");
-      const time = str[1].split(".");
-      const codeHour = time[0];
-      */
-
-      /**
-       console.log(new Date());
-      console.log(codeHour);
-       */
-
-      //res.status(200).json({ msg: "date retrieved!"});
     } catch (error) {
       console.log("Endpoint error: " + error);
       res.status(200).json({ msg: "Could not create block student row" });

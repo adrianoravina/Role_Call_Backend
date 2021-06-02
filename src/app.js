@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
+const utils = require("./utils/app-schema")
 
 
 require("dotenv").config();
@@ -11,21 +12,16 @@ const { SessionsEndpoint, UsersEndpoint } = require("./endpoints");
 
 const { authUser, loggedInUser } = require("./authentication/basicAuth.js");
 
-//const iwlist = require('wireless-tools/iwlist');
 const app = express();
 
 //view engine
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
-//app.use(express.static(__dirname + '../public'));
-// Require static assets from public folder
-//app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Set 'views' directory for any views 
 // being rendered res.render()
 app.set('views', path.join(__dirname, '../views'));
-//app.set('views', __dirname + '.././views');
-//app.set('views', { root: path.join(__dirname, "../views") });
 
 
 app.use(
@@ -41,6 +37,14 @@ app.use(
     },
   })
 );
+
+//app.set('views', __dirname + '.././views');
+//app.set('views', { root: path.join(__dirname, "../views") });
+//app.use(express.static(__dirname + '../public'));
+// Require static assets from public folder
+//app.use(express.static(path.join(__dirname, 'public')));
+
+//const iwlist = require('wireless-tools/iwlist');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -90,6 +94,7 @@ app.get("/teacherPage", authUser, async (req, res) => {
 });
 
 app.get("/studentPage", authUser, async (req, res) => {
+
   switch (req.session.userType) {
     case "teacher": 
       res.redirect("/teacherPage");  
@@ -100,7 +105,7 @@ app.get("/studentPage", authUser, async (req, res) => {
   }
 
   
-  res.render('studentPage', {correctCode : "null"}) 
+  res.status(200).render('studentPage', {correctCode : "null"}) 
   //res.sendFile("studentPage.html", { root: path.join(__dirname, "../views") });
 });
 
@@ -136,3 +141,5 @@ app.listen(PORT, () => {
 
 SessionsEndpoint(app);
 UsersEndpoint(app);
+
+module.exports = app;
