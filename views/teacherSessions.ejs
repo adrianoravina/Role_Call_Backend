@@ -368,7 +368,7 @@
         <div class="col header">Status</div>
         <div class="col header" style="padding: 30px 0 31px 0;"></div>
       </div>
-      <% for(var i=0; i < data.length; i++) { %>
+      <% for(var i=data.length-4; i < data.length; i++) { %>
         <div class="row">
           <div class="col">
             <%= data[i].session_id %>
@@ -382,7 +382,9 @@
           <div class="col">
             <%= data[i].s_date %>
           </div>
-          <div class="col"> In Session </div>
+          <div class="col"> 
+            <%= data[i].s_status %>  
+          </div>
           <div class="col button"><button type="submit" name="sessionId" value=<%=data[i].session_id %>>Go to
               blocks</button></div>
         </div>

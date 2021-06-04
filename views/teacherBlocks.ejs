@@ -320,7 +320,7 @@
     <div class="headerStyle">
       <div class="navigation">
 
-        <a class="button" href="/logOut"">
+        <a class="button" href="/logOut">
       <img src=" https://kea.dk/images/resources/kea_180.png">
 
           <div class="logout">LOGOUT</div>
@@ -337,6 +337,8 @@
 
   </header>
   <form action="/startBlock" method="post">
+    
+    <input type="hidden" name="sessionId" value="<%=data[0].b_sessionId %>"/>
     <div class="div-table">
       <div class="header-row">
         <div class="col">Block Id</div>
@@ -355,15 +357,22 @@
           <div class="col">
             <%= data[i].b_status %>
           </div>
+          
           <div class="col button">
             <button type="submit" name="blockId" value=<%=data[i].block_id %>
+              
               <% if(data[i].b_status=='In Session' || data[i].b_status=='Finished' ) { %>
                 disabled
                 <% } %>
-                  >Start Block
+                  >
+                  
+                  Start Block
             </button>
+            
           </div>
         </div>
+        
+        
         <% } %>
           <div class="footer"></div>
     </div>

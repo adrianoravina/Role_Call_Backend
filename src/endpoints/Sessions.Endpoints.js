@@ -16,8 +16,8 @@ const {
 const SessionsEndpoint = (app) => {
   app.post("/createSession", async (req, res) => {
     try {
-      console.log(req.body);
-      const {
+      
+const {
         courseName,
         classGroups,
         descriptionCourse,
@@ -36,6 +36,7 @@ const SessionsEndpoint = (app) => {
         geoLat,
         geoLong,
       ];
+    
 
       const sessionId = await createSession(sessionData);
       const status = "Pending";
@@ -173,13 +174,17 @@ app.post("/checkIn", async (req, res) => {
 
   app.post("/startBlock", async (req, res) => {
     try {
-      const { blockId } = req.body;
+      const { blockId, sessionId } = req.body;
       console.log(blockId);
+      console.log(sessionId);
 
       const sqlResponse = await startBlock(blockId);
 
-      console.log(sqlResponse);
+      const newResponse = await getTeacherBlocks(sessionId);
 
+      //console.log(sqlResponse);
+
+      res.render("teacherBlocks", { data: newResponse });
       //res.render('studentStatistics', {data: studentStats})
     } catch (error) {
       console.log("Endpoint error: " + error);

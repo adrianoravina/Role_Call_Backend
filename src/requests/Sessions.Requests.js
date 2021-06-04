@@ -125,6 +125,7 @@ const getTeacherBlocks = async (sessionId) => {
     .promise()
     .query(sql)
     .then(([rows, fields]) => {
+      console.log(rows)
       return rows;
     })
     .catch(console.log);
